@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>認定試験対策</title>
+<style>
+:root {
+--bg: #f7f6f2;
+--surface: #ffffff;
+--surface-2: #f1efe8;
+--text: #222018;
+--muted: #6f6b5f;
+--primary: #01696f;
+--primary-2: #0c4e54;
+--correct: #2d6a2d;
+--wrong: #9b2c2c;
+--border: #d8d3c8;
+--shadow: 0 10px 30px rgba(30,25,10,.08);
+--radius: 18px;
+}
+* { box-sizing: border-box; }
+body {
+margin: 0;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Sans", "Noto Sans JP", sans-serif;
+background: linear-gradient(180deg, #f7f6f2 0%, #eeebe3 100%);
+color: var(--text);
+min-height: 100vh;
+}
+.wrap {
+width: min(920px, calc(100vw - 24px));
+margin: 0 auto;
+padding: 18px 0 40px;
+}
+.card {
+background: rgba(255,255,255,.88);
+backdrop-filter: blur(8px);
+border: 1px solid var(--border);
+border-radius: var(--radius);
+box-shadow: var(--shadow);
+}
+.header {
+padding: 18px 18px 14px;
+margin-bottom: 14px;
+}
+.title {
+font-size: clamp(1.4rem, 1rem + 1vw, 2rem);
+font-weight: 800;
+margin: 0 0 8px;
+}
+.sub {
+color: var(--muted);
+font-size: .96rem;
+margin: 0;
+}
+.topbar {
+display: grid;
+grid-template-columns: 1fr;
+gap: 12px;
+padding: 14px 18px;
+margin-bottom: 14px;
+}
+.stats {
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+gap: 10px;
+}
+.stat {
+background: var(--surface-2);
+border-radius: 14px;
+padding: 10px 12px;
+border: 1px solid #e5e1d8;
+}
+.stat .k { font-size: .78rem; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-size: 1.15rem; font-weight: 800; }
+.controls {
+display: grid;
+grid-template-rows: auto auto auto;
+gap: 6px;
+}
+.controls-row {
+display: grid;
+gap: 6px;
+}
+.controls-row-1 { grid-template-columns: 1fr; }
+.controls-row-2 { grid-template-columns: 1fr 1fr; }
+.controls-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+.controls select {
+width: 100%;
+min-height: 44px;
+padding: 10px 12px;
+font-size: 14px;
+}
+.controls button.secondary {
+min-height: 30px;
+padding: 5px 6px;
+font-size: 10.5px;
+letter-spacing: -.01em;
+line-height: 1.15;
+}
+select, button {
+font: inherit;
+}
+select {
+padding: 10px 12px;
+border-radius: 12px;
+border: 1px solid var(--border);
+background: white;
+min-width: 0;
+}
+button {
+border: 0;
+border-radius: 12px;
+padding: 10px 14px;
+cursor: pointer;
+background: var(--primary);
+color: white;
+font-weight: 700;
+}
+button.secondary {
+background: #ebe7dd;
+color: var(--text);
+}
+button:disabled {
+opacity: .45;
+cursor: default;
+}
+.quiz {
+padding: 18px;
+}
+.meta {
+display: flex;
+justify-content: space-between;
+gap: 8px;
+align-items: center;
+color: var(--muted);
+font-size: .92rem;
+margin-bottom: 12px;
+}
+.progress {
+height: 10px;
+background: #ece8df;
+border-radius: 999px;
+overflow: hidden;
+margin-bottom: 18px;
+}
+.progress > div {
+height: 100%;
+width: 0%;
+background: linear-gradient(90deg, var(--primary), #3b8d93);
+transition: width .25s ease;
+}
+.question {
+font-size: clamp(1.1rem, .95rem + .7vw, 1.45rem);
+line-height: 1.55;
+font-weight: 750;
+margin: 0 0 16px;
+}
+.choices {
+display: grid;
+gap: 10px;
+}
+.choice {
+text-align: left;
+width: 100%;
+padding: 14px 14px;
+background: white;
+color: var(--text);
+border: 1px solid var(--border);
+border-radius: 14px;
+transition: transform .08s ease, border-color .15s ease, background .15s ease;
+}
+.choice:hover { transform: translateY(-1px); }
+.choice.correct {
+background: #eef8ee;
+border-color: #8dc58d;
+color: var(--correct);
+}
+.choice.wrong {
+background: #fff0f0;
+border-color: #d99a9a;
+color: var(--wrong);
+}
+.explanation {
+margin-top: 12px;
+padding: 14px;
+border-radius: 14px;
+background: #f5f4ef;
+border: 1px solid #e5e1d8;
+line-height: 1.7;
+display: none;
+}
+.footer {
+display: flex;
+justify-content: space-between;
+gap: 10px;
+align-items: center;
+margin-top: 16px;
+flex-wrap: wrap;
+}
+.result {
+padding: 22px 18px;
+text-align: center;
+}
+.result h2 {
+margin: 0 0 10px;
+font-size: 1.6rem;
+}
+.result p { color: var(--muted); }
+.pill {
+display: inline-block;
+padding: 6px 10px;
+border-radius: 999px;
+background: #e9f3f4;
+color: var(--primary-2);
+font-size: .82rem;
+font-weight: 700;
+}
+.secondary.active-flag {
+background: #e9f1f1;
+color: #0c4e54;
+border: 1px solid #b8d0d1;
+}
+.issue-panel {
+margin-top: 14px;
+padding: 12px 14px;
+border-radius: 14px;
+background: #f5f4ef;
+border: 1px solid #e5e1d8;
+}
+.issue-row {
+display: flex;
+justify-content: space-between;
+gap: 10px;
+align-items: center;
+flex-wrap: wrap;
+}
+.issue-actions {
+display: flex;
+gap: 8px;
+flex-wrap: wrap;
+}
+.issue-actions .secondary {
+min-height: 30px;
+padding: 5px 6px;
+font-size: 10.5px;
+letter-spacing: -.01em;
+}
+.top-actions {
+display: flex;
+gap: 8px;
+flex-wrap: wrap;
+}
+.flag-list {
+display: grid;
+gap: 10px;
+margin-top: 12px;
+text-align: left;
+}
+.flag-item {
+background: #fff;
+border: 1px solid var(--border);
+border-radius: 14px;
+padding: 12px 14px;
+}
+.flag-id {
+font-size: .78rem;
+color: var(--muted);
+margin-bottom: 6px;
+letter-spacing: .04em;
+}
+.mastery-grid {
+display: grid;
+gap: 12px;
+margin-top: 14px;
+}
+.mastery-card {
+background: #fff;
+border: 1px solid var(--border);
+border-radius: 16px;
+padding: 14px;
+}
+.mastery-head {
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 10px;
+margin-bottom: 10px;
+}
+.mastery-title {
+font-weight: 700;
+}
+.mastery-percent {
+font-weight: 800;
+color: var(--primary);
+}
+.bar {
+height: 10px;
+border-radius: 999px;
+background: #ece8df;
+overflow: hidden;
+margin-bottom: 10px;
+}
+.bar > div {
+height: 100%;
+background: linear-gradient(90deg, #7fb1b4 0%, #01696f 100%);
+border-radius: 999px;
+}
+.mastery-meta {
+display: flex;
+gap: 10px;
+flex-wrap: wrap;
+color: var(--muted);
+font-size: .86rem;
+}
+.copy-box {
+width: 100%;
+min-height: 140px;
+border: 1px solid var(--border);
+border-radius: 14px;
+padding: 12px;
+font: inherit;
+line-height: 1.6;
+background: #fff;
+color: var(--text);
+resize: vertical;
+margin-top: 12px;
+}
+.flag-question {
+line-height: 1.6;
+font-weight: 600;
+}
+.sticky-next {
+position: sticky;
+bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+display: flex;
+justify-content: flex-end;
+padding-top: 12px;
+margin-top: 12px;
+background: linear-gradient(180deg, rgba(247,246,242,0) 0%, rgba(247,246,242,0.88) 24%, rgba(247,246,242,0.96) 100%);
+backdrop-filter: blur(6px);
+}
+.sticky-next button {
+min-width: 132px;
+box-shadow: 0 8px 20px rgba(1,105,111,.16);
+}
+@media (max-width: 700px) {
+.wrap { width: min(100vw - 10px, 920px); }
+.stats { grid-template-columns: repeat(2, 1fr); }
+.topbar, .quiz, .header { padding: 12px; }
+.footer { align-items: stretch; }
+.footer button { width: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="card header">
+<h1 class="title">認定試験対策</h1>
+</section>
+<section class="card topbar">
+<div class="stats">
+<div class="stat"><div class="k" id="masteryLabel">習熟度</div><div class="v" id="overallMastery">0%</div></div>
+<div class="stat"><div class="k">完了</div><div class="v" id="clearedCount">0</div></div>
+</div>
+<div class="controls">
+<div class="controls-row controls-row-1">
+<select id="categorySelect"></select>
+</div>
+<div class="controls-row controls-row-2">
+<button id="restartBtn" class="secondary">最初から</button>
+<button id="retryWrongBtn" class="secondary">間違えた問題だけ</button>
+</div>
+<div class="controls-row controls-row-3">
+<button id="masteryPageBtn" class="secondary">習熟度</button>
+<button id="bookmarkPageBtn" class="secondary">ブックマーク</button>
+<button id="flaggedPageBtn" class="secondary">違和感あり</button>
+</div>
+</div>
+</section>
+<main class="card quiz" id="app"></main>
+</div>
+<script>
+const QUESTION_BANK = [
+{id:'q001',category:'解剖と生理',question:'乳腺機能の最小単位として正しいのはどれか。',choices:['小葉','TDLU','Cooper靱帯','乳管洞'],answer_index:0,explanation:'乳腺機能の最小単位は小葉である。TDLUは小葉と小葉外終末乳管を含む単位として扱われる。'},
+{id:'q002',category:'解剖と生理',question:'ほとんどの乳癌の発生母地と考えられているのはどれか。',choices:['TDLU','Cooper靱帯','乳腺後隙','モントゴメリ腺'],answer_index:0,explanation:'ほとんどの乳癌はTDLUを発生母地と考える。'},
+{id:'q003',category:'解剖と生理',question:'dense breastについて正しいのはどれか。',choices:['マンモグラフィで腫瘤の検出が難しい','マンモグラフィで腫瘤検出が容易である','石灰化を全く認めない','高齢者にしかみられない'],answer_index:0,explanation:'dense breastではマンモグラフィで腫瘤検出が難しくなる。'},
+{id:'q004',category:'解剖と生理',question:'乳児の吸乳刺激により分

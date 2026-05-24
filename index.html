@@ -673,6 +673,7 @@ const savedPanel = document.getElementById('savedPanel');
 
     function toggleFlagCurrent() {
       const q = state.questions[state.index];
+      if (!q) return;
       const pos = state.flaggedIds.indexOf(q.id);
       if (pos >= 0) {
         state.flaggedIds.splice(pos, 1);
@@ -681,7 +682,15 @@ const savedPanel = document.getElementById('savedPanel');
       }
       saveState();
       updateStats();
-      render();
+      // render()を呼ばず、フラグボタンだけ更新
+      const flagBtn = document.querySelector('.issue-actions button:nth-child(2)');
+      if (flagBtn) {
+        if (state.flaggedIds.includes(q.id)) {
+          flagBtn.classList.add('active-flag');
+        } else {
+          flagBtn.classList.remove('active-flag');
+        }
+      }
     }
 
     function calcMastery(question) {
@@ -770,9 +779,8 @@ const savedPanel = document.getElementById('savedPanel');
       const ok = confirm('違和感ありをすべて削除しますか？');
       if (!ok) return;
       state.flaggedIds = [];
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ currentCategory: state.currentCategory, statsById: state.statsById, wrongIds: state.wrongIds, flaggedIds: [], bookmarkedIds: state.bookmarkedIds })); } catch (e) {}
+      saveState();
       updateStats();
-      state.view = 'flagged';
       renderFlaggedPage();
     }
 

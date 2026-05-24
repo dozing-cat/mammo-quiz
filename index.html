@@ -921,10 +921,12 @@ const savedPanel = document.getElementById('savedPanel');
     masteryPageBtn.addEventListener('click', openMasteryPage);
     bookmarkPageBtn.addEventListener('click', renderBookmarks);
     flaggedPageBtn.addEventListener('click', openFlaggedPage);
-savedToggleBtn.addEventListener('click', () => {
-  const isOpen = savedPanel.classList.toggle('open');
-  savedToggleBtn.textContent = isOpen ? '保存済みを閉じる' : '保存済み';
-});
+if (savedToggleBtn && savedPanel) {
+  savedToggleBtn.addEventListener('click', () => {
+    const isOpen = savedPanel.classList.toggle('open');
+    savedToggleBtn.textContent = isOpen ? '保存済みを閉じる' : '保存済み';
+  });
+}
 
     buildCategories();
     prepareQuestions('all');

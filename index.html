@@ -399,12 +399,20 @@
         <div class="stat"><div class="k" id="masteryLabel">習熟度</div><div class="v" id="overallMastery">0%</div></div>
         <div class="stat"><div class="k">完了</div><div class="v" id="clearedCount">0</div></div>
       </div>
-      <div class="controls">
+            <div class="controls-v2">
         <select id="categorySelect"></select>
-        <button id="restartBtn" class="secondary">最初から</button>
-        <button id="retryWrongBtn" class="secondary">間違えた問題だけ</button>
-        <button id="masteryPageBtn" class="secondary">習熟度</button>
+                      <div class="toolbar-grid-v2">
+          <button id="restartBtn" class="secondary">最初から</button>
+          <button id="retryWrongBtn" class="secondary">間違えた問題だけ</button>
+          <button id="masteryPageBtn" class="secondary">習熟度</button>
+                                  <button id="savedToggleBtn" class="secondary">保存済み</button>
       </div>
+                      <div id="savedPanel" class="saved-panel">
+                                  <div class="saved-grid">
+                                                <button id="bookmarkPageBtn" class="secondary">ブックマーク</button>
+                                                <button id="flaggedPageBtn" class="secondary">違和感あり</button>
+                                              </div>
+                                </div>
     </section>
 
     <main class="card quiz" id="app"></main>

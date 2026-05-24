@@ -163,7 +163,7 @@ function updateStats() {
   const label = state.currentCategory === 'all' ? '習熟度' : `${state.currentCategory} の習熟度`;
   if (masteryLabel) masteryLabel.textContent = label;
   if (overallMastery) overallMastery.textContent = `${masteryPct}%`;
-  if (clearedCount) clearedCount.textContent = cleared;
+  if (clearedCount) clearedCount.textContent = `${cleared}/${totalQuestions}`;
   retryWrongBtn.disabled = state.wrongIds.length === 0;
 }
 

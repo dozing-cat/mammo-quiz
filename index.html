@@ -633,7 +633,15 @@ const savedPanel = document.getElementById('savedPanel');
         state.bookmarkedIds.unshift(q.id);
       }
       saveState();
-      render();
+        // render()を呼ばず、ブックマークボタンだけ更新
+  const bookmarkBtn = document.querySelector('.issue-actions button:nth-child(1)');
+  if (bookmarkBtn) {
+    if (state.bookmarkedIds.includes(q.id)) {
+      bookmarkBtn.classList.add('active-flag');
+    } else {
+      bookmarkBtn.classList.remove('active-flag');
+    }
+  }
     }
 
     function removeBookmark(id) {

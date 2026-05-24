@@ -383,9 +383,8 @@
       #restartBtn { grid-column: 1 / 4; }
       #retryWrongBtn { grid-column: 4 / 7; }
       #masteryPageBtn { grid-column: 1 / 3; }
-      #bookmarkPageBtn { grid-column: 3 / 5; }
-      #flaggedPageBtn { grid-column: 5 / 7; }
-    }
+      #savedToggleBtn { grid-column: 3 / 7; }      #flaggedPageBtn { grid-column: 5 / 7; }
+   
   </style>
 </head>
 <body>
@@ -405,8 +404,6 @@
         <button id="restartBtn" class="secondary">最初から</button>
         <button id="retryWrongBtn" class="secondary">間違えた問題だけ</button>
         <button id="masteryPageBtn" class="secondary">習熟度</button>
-        <button id="bookmarkPageBtn" class="secondary">ブックマーク</button>
-        <button id="flaggedPageBtn" class="secondary">違和感あり</button>
       </div>
     </section>
 
@@ -525,8 +522,6 @@
     const restartBtn = document.getElementById('restartBtn');
     const retryWrongBtn = document.getElementById('retryWrongBtn');
     const masteryPageBtn = document.getElementById('masteryPageBtn');
-    const flaggedPageBtn = document.getElementById('flaggedPageBtn');
-    const bookmarkPageBtn = document.getElementById('bookmarkPageBtn');
 const savedToggleBtn = document.getElementById('savedToggleBtn');
 const savedPanel = document.getElementById('savedPanel');
 

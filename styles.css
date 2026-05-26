@@ -45,7 +45,9 @@ body {
 .controls .row-break { grid-column: 1 / -1; display: contents; }
 .controls select, .controls button.secondary { min-height: 32px; padding: 6px 8px; font-size: 11px; line-height: 1.15; }
 .controls select { min-width: 0; width: 100%; }
+.button-row { display: flex; gap: 6px; grid-column: 1 / -1; }
 .half-width { flex: 1; min-width: 0; }
+.saved-grid { display: flex; gap: 6px; }
 @media (min-width: 768px) {
   .controls { display: flex; flex-wrap: wrap; }
   .controls .row-break { display: contents; }

@@ -130,17 +130,20 @@ button:disabled { opacity: .45; cursor: default; }
 .button-row .secondary,
 .saved-grid .secondary {
   font-size: 0.82rem;
-  padding: 7px 9px;
-  min-height: 34px;
+  padding: 6px 8px;
+  min-height: 32px;
+  font-size: 0.84rem;
+  line-height: 1.15;
 }
   line-height: 1.2;
 }
 
 .topbar {
-  gap: 8px;
+  gap: 6px;
 }
 .topbar,
 .quiz {
   margin-left: 8px;
   margin-right: 8px;
 }
+

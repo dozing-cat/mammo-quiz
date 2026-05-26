@@ -80,14 +80,17 @@ button:disabled { opacity: .45; cursor: default; }
 
 
 .saved-panel {
-    display: none;
+
     margin-top: 6px;
     padding: 10px;
     border-radius: 14px;
     background: #f5f4ef;
     border: 1px solid #e1e1d8;
   }
+.saved-grid {
+    display: none;
+  }
 
-.saved-panel.open {
+.saved-panel.open  .saved-grid {
     display: block;
   }

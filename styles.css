@@ -145,5 +145,6 @@ button:disabled { opacity: .45; cursor: default; }
 .quiz {
   margin-left: 8px;
   margin-right: 8px;
+  margin-bottom: 8px;
 }
 

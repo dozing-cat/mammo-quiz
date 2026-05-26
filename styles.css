@@ -139,3 +139,8 @@ button:disabled { opacity: .45; cursor: default; }
 .topbar {
   gap: 8px;
 }
+.topbar,
+.quiz {
+  margin-left: 8px;
+  margin-right: 8px;
+}

@@ -126,3 +126,11 @@ button:disabled { opacity: .45; cursor: default; }
 
 .saved-panel.open {    display: block;
   }
+
+.button-row .secondary,
+.saved-grid .secondary {
+  font-size: 0.85rem;
+  padding: 8px 10px;
+  min-height: 36px;
+  line-height: 1.2;
+}

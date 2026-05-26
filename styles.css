@@ -38,6 +38,10 @@ body {
 .topbar { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 14px 18px; margin-bottom: 14px; }
 .stats-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
+.stat {
+    min-width: 0;
+  }
+
 .button-row {
     display: contents;
   }

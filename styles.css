@@ -108,6 +108,8 @@ button:disabled { opacity: .45; cursor: default; }
 
 
 .saved-panel {
+    display: none;
+    grid-column: 1 / -1;
 
     margin-top: 6px;
     padding: 10px;
@@ -116,9 +118,7 @@ button:disabled { opacity: .45; cursor: default; }
     border: 1px solid #e1e1d8;
   }
 .saved-grid {
-    display: none;
-  }
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px;  }
 
-.saved-panel.open  .saved-grid {
-    display: block;
+.saved-panel.open {    display: block;
   }

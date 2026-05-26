@@ -71,8 +71,7 @@ body {
 .stat .t { font-size: .78rem; color: var(--muted); margin-bottom: 4px; }
 .controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; align-items: stretch; }
 .controls .row-break { grid-column: 1 / -1; display: contents; }
-.controls select, .controls button.secondary { min-height: 32px; padding: 6px 8px; font-size: 11px; line-height: 1.15; }
-.controls select { min-width: 0; width: 100%; }
+.controls button.secondary { min-height: 28px; padding: 5px 7px; font-size: 10px; line-height: 1.15; }.controls select { min-width: 0; width: 100%; }
 .half-width { flex: 1; min-width: 0; }
 @media (min-width: 768px) {
   .controls { display: flex; flex-wrap: wrap; }

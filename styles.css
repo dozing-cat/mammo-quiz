@@ -129,8 +129,13 @@ button:disabled { opacity: .45; cursor: default; }
 
 .button-row .secondary,
 .saved-grid .secondary {
-  font-size: 0.85rem;
-  padding: 8px 10px;
-  min-height: 36px;
+  font-size: 0.82rem;
+  padding: 7px 9px;
+  min-height: 34px;
+}
   line-height: 1.2;
+}
+
+.topbar {
+  gap: 8px;
 }

@@ -77,3 +77,17 @@ button:disabled { opacity: .45; cursor: default; }
 .issue-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .issue-actions .secondary { min-height: 30px; padding: 5px 6px; font-size: 10.5px; letter-spacing: -.01em; }
 .top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+
+.saved-panel {
+    display: none;
+    margin-top: 6px;
+    padding: 10px;
+    border-radius: 14px;
+    background: #f5f4ef;
+    border: 1px solid #e1e1d8;
+  }
+
+.saved-panel.open {
+    display: block;
+  }

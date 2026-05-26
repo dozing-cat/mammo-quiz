@@ -15,23 +15,34 @@
       </header>
 
       <div class="topbar card">
-        <div class="stats">
+        <!-- 1行目: 習熟度・完了 (50%ずつ) -->
+        <div class="stats-row">
           <div class="stat">
-            <div class="k" id="masteryLabel">習熟度</div>
+            <div class="t" id="masteryLabel">習熟度</div>
             <div class="v" id="overallMastery">0%</div>
           </div>
           <div class="stat">
-            <div class="k">完了</div>
-            <div class="v" id="clearedCount">0</div>
+            <div class="t">完了</div>
+            <div class="v" id="clearedCount">0/0</div>
           </div>
         </div>
-        <div class="controls">
-          <select id="categorySelect"></select>
-          <button class="secondary" id="restartBtn">最初から</button>
-          <button class="secondary" id="retryWrongBtn" disabled>間違えた問題だけ</button>
-          <button class="secondary" id="masteryPageBtn">習熟度</button>
-          <button id="savedToggleBtn">保存済み</button>
+
+        <!-- 2行目: カテゴリ選択 (100%幅) -->
+        <select id="categorySelect"></select>
+
+        <!-- 3行目: 最初から・習熟度 (50%ずつ) -->
+        <div class="button-row">
+          <button class="secondary half-width" id="restartBtn">最初から</button>
+          <button class="secondary half-width" id="masteryPageBtn">習熟度</button>
         </div>
+
+        <!-- 4行目: 間違えた問題だけ・保存済み (50%ずつ) -->
+        <div class="button-row">
+          <button class="secondary half-width" id="retryWrongBtn" disabled>間違えた問題だけ</button>
+          <button class="secondary half-width" id="savedToggleBtn">保存済み</button>
+        </div>
+
+        <!-- 保存済みパネル: ブックマーク・違和感あり -->
         <div class="saved-panel" id="savedPanel">
           <div class="saved-grid">
             <button class="secondary" id="bookmarkPageBtn">ブックマーク</button>

@@ -46,25 +46,26 @@ body {
     display: contents;
   }
 
-#restartBtn {
-    grid-column: 1;
+#categorySelect {
+    grid-column: 1 / -1;
     grid-row: 2;
   }
+
+#restartBtn {
+    grid-column: 1;
+  grid-row: 3;  }
 
 #retryWrongBtn {
     grid-column: 2;
-    grid-row: 2;
-  }
+  grid-row: 3;  }
 
 #masteryPageBtn {
     grid-column: 1;
-    grid-row: 3;
-  }
+  grid-row: 4;  }
 
 #savedToggleBtn {
     grid-column: 2;
-    grid-row: 3;
-  }
+  grid-row: 4;  }
 .stat .k { font-size: .78rem; color: var(--muted); margin-bottom: 4px; }
 .stat .v { font-size: 1.15rem; font-weight: 800; }
 .stat .t { font-size: .78rem; color: var(--muted); margin-bottom: 4px; }

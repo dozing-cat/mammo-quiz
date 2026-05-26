@@ -148,3 +148,32 @@ button:disabled { opacity: .45; cursor: default; }
   margin-bottom: 8px;
 }
 
+.quiz {
+  padding-bottom: 96px;
+}
+
+.sticky-next {
+  position: sticky;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  z-index: 20;
+  margin-top: 12px;
+  padding-top: 8px;
+  background: linear-gradient(
+    to top,
+    rgba(255,255,255,.96),
+    rgba(255,255,255,.82),
+    rgba(255,255,255,0)
+  );
+}
+
+.sticky-next #nextBtn {
+  width: 100%;
+  min-height: 44px;
+  box-shadow: 0 8px 20px rgba(30,25,10,.12);
+}
+
+.explanation {
+  max-height: min(28vh, 220px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}

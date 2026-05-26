@@ -342,12 +342,17 @@ function clearAllFlags() {
 function answer(choiceIndex) {
   if (state.locked) return;
   state.locked = true;
+
   const q = state.questions[state.index];
   const buttons = [...document.querySelectorAll('.choice')];
   const ok = choiceIndex === q.answer_index;
+
   state.answered += 1;
-  if (!state.statsById[q.id]) state.statsById[q.id] = { seen: 0, wrong: 0, correct: 0, mastery: 0 };
+  if (!state.statsById[q.id]) {
+    state.statsById[q.id] = { seen: 0, wrong: 0, correct: 0, mastery: 0 };
+  }
   state.statsById[q.id].seen += 1;
+
   if (ok) {
     state.correct += 1;
     state.statsById[q.id].correct += 1;
@@ -357,15 +362,20 @@ function answer(choiceIndex) {
     state.statsById[q.id].wrong += 1;
     state.statsById[q.id].mastery = Math.max(0, (state.statsById[q.id].mastery || 0) - 2);
   }
+
   buttons.forEach((btn, i) => {
     if (i === q.answer_index) btn.classList.add('correct');
     if (i === choiceIndex && i !== q.answer_index) btn.classList.add('wrong');
     btn.disabled = true;
   });
+
   document.getElementById('explanation').style.display = 'block';
   updateStats();
   saveState();
-  document.getElementById('nextBtn').disabled = false;
+
+  const nextBtn = document.getElementById('nextBtn');
+  nextBtn.disabled = false;
+  nextBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function next() {

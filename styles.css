@@ -36,11 +36,7 @@ body {
 .title { font-size: clamp(1.4rem, 1rem + 1vw, 2rem); font-weight: 800; margin: 0 0 8px; }
 .sub { color: var(--muted); font-size: .96rem; margin: 0; }
 .topbar { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 14px 18px; margin-bottom: 14px; }
-.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }.stat { background: var(--surface-2); border-radius: 14px; padding: 10px 12px; border: 1px solid #e5e1d8; }
-
-.stats-row {
-    grid-column: 1 / -1;
-  }
+.stats-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
 .button-row {
     display: contents;

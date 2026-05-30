@@ -351,7 +351,7 @@ button:disabled { opacity: .45; cursor: default; }
 
 .confirm-ok {
   min-height: 44px;
-  background: var(--wrong, #9b2c2c);
+  background: var(--primary);
   color: #fff;
   border: none;
   border-radius: 12px;
@@ -360,5 +360,5 @@ button:disabled { opacity: .45; cursor: default; }
 }
 
 .confirm-ok:hover {
-  background: #7e2020;
+  background: var(--primary-2);
 }

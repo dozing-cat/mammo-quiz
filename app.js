@@ -416,13 +416,62 @@ function renderResult() {
 function render() {
   if (state.view === 'mastery') {
     const rows = categoryMasteryRows();
+
+    // 全体習熟度を計算
+    const allItems = QUESTION_BANK;
+    const totalMasterySum = allItems.reduce((sum, q) => {
+      const s = state.statsById[q.id] || { mastery: 0 };
+      return sum + Math.max(0, Math.min(3, s.mastery || 0));
+    }, 0);
+    const overallPct = allItems.length
+      ? Math.round((totalMasterySum / (allItems.length * 3)) * 100)
+      : 0;
+    const overallCleared = allItems.filter(q =>
+      ((state.statsById[q.id] || {}).mastery || 0) >= 3
+    ).length;
+
+    // SVGドーナツ（全体習熟度）
+    const r = 42, cx = 56, cy = 56, stroke = 10;
+    const circumference = 2 * Math.PI * r;
+    const dash = circumference * overallPct / 100;
+    const gap = circumference - dash;
+
     app.innerHTML = `
       <section class="result" style="text-align:left;">
         <div class="top-actions" style="justify-content:space-between; align-items:center; margin-bottom:12px;">
           <button class="secondary" onclick="backToQuiz()">戻る</button>
         </div>
         <span class="pill">習熟度</span>
-        <h2 style="margin-top:10px;">カテゴリ別の到達状況</h2>
+
+        <!-- 全体サマリー -->
+        <div class="mastery-summary">
+          <svg viewBox="0 0 112 112" class="donut-svg" aria-label="全体習熟度 ${overallPct}%">
+            <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#ece8df" stroke-width="${stroke}"/>
+            <circle cx="${cx}" cy="${cy}" r="${r}" fill="none"
+              stroke="var(--primary)"
+              stroke-width="${stroke}"
+              stroke-linecap="round"
+              stroke-dasharray="${dash} ${gap}"
+              stroke-dashoffset="${circumference * 0.25}"
+              style="transition: stroke-dasharray 0.6s ease;"
+            />
+            <text x="${cx}" y="${cy - 6}" text-anchor="middle" class="donut-pct">${overallPct}%</text>
+            <text x="${cx}" y="${cy + 14}" text-anchor="middle" class="donut-label">全体習熟度</text>
+          </svg>
+          <div class="mastery-summary-stats">
+            <div class="mastery-summary-item">
+              <div class="mastery-summary-val">${overallCleared}<span class="mastery-summary-unit"> / ${allItems.length}</span></div>
+              <div class="mastery-summary-key">完了問題数</div>
+            </div>
+            <div class="mastery-summary-item">
+              <div class="mastery-summary-val">${allItems.length - overallCleared}</div>
+              <div class="mastery-summary-key">未完了</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- カテゴリ別バーグラフ -->
+        <h3 class="mastery-section-title">カテゴリ別の到達状況</h3>
         <div class="mastery-grid">
           ${rows.map(row => `
             <div class="mastery-card">
@@ -430,7 +479,9 @@ function render() {
                 <div class="mastery-title">${row.category}</div>
                 <div class="mastery-percent">${row.avg}%</div>
               </div>
-              <div class="bar"><div style="width:${row.avg}%"></div></div>
+              <div class="mastery-bar-track">
+                <div class="mastery-bar-fill" style="width:${row.avg}%"></div>
+              </div>
               <div class="mastery-meta">
                 <span>完了 ${row.cleared}/${row.total}</span>
                 <span>未着手 ${row.untouched}</span>

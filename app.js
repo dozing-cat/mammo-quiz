@@ -18,6 +18,7 @@ function makeInitialState() {
     correct: 0,
     answered: 0,
     locked: false,
+    selectedAnswerIndex: null,
     view: 'quiz'
   };
 }
@@ -342,6 +343,7 @@ function clearAllFlags() {
 function answer(choiceIndex) {
   if (state.locked) return;
   state.locked = true;
+  state.selectedAnswerIndex = choiceIndex;
 
   const q = state.questions[state.index];
   const buttons = [...document.querySelectorAll('.choice')];
@@ -381,6 +383,7 @@ function answer(choiceIndex) {
 function next() {
   state.index += 1;
   state.locked = false;
+  state.selectedAnswerIndex = null;
   render();
 }
 
@@ -479,6 +482,19 @@ function render() {
       <button id="nextBtn" onclick="next()" disabled>次へ</button>
     </div>
   `;
+
+  // 解答済み状態の復元
+  if (state.locked && state.selectedAnswerIndex !== null) {
+    document.querySelectorAll('.choice').forEach((btn, i) => {
+      btn.disabled = true;
+      if (i === q.answer_index) btn.classList.add('correct');
+      if (i === state.selectedAnswerIndex && i !== q.answer_index) btn.classList.add('wrong');
+    });
+    const explanation = document.getElementById('explanation');
+    if (explanation) explanation.style.display = 'block';
+    const nextBtn = document.getElementById('nextBtn');
+    if (nextBtn) nextBtn.disabled = false;
+  }
 }
 
 categorySelect.addEventListener('change', e => {

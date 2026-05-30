@@ -332,12 +332,42 @@ function backToQuiz() {
 
 function clearAllFlags() {
   if (!state.flaggedIds || !state.flaggedIds.length) return;
-  const ok = confirm('違和感ありをすべて削除しますか？');
-  if (!ok) return;
-  state.flaggedIds = [];
-  saveState();
-  updateStats();
-  renderFlaggedPage();
+
+  // カスタム確認ダイアログを生成
+  const overlay = document.createElement('div');
+  overlay.className = 'confirm-overlay';
+  overlay.innerHTML = `
+    <div class="confirm-dialog">
+      <p class="confirm-message">違和感ありをすべて削除しますか？</p>
+      <div class="confirm-actions">
+        <button class="secondary confirm-cancel">キャンセル</button>
+        <button class="confirm-ok">削除する</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  // フェードイン
+  requestAnimationFrame(() => overlay.classList.add('open'));
+
+  const close = () => {
+    overlay.classList.remove('open');
+    overlay.addEventListener('transitionend', () => overlay.remove(), { once: true });
+  };
+
+  overlay.querySelector('.confirm-cancel').addEventListener('click', close);
+  overlay.querySelector('.confirm-ok').addEventListener('click', () => {
+    state.flaggedIds = [];
+    saveState();
+    updateStats();
+    renderFlaggedPage();
+    close();
+  });
+
+  // 背景タップでキャンセル
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) close();
+  });
 }
 
 function answer(choiceIndex) {
